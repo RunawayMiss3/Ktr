@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algo diferente para ti</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.container {
+    max-width: 420px;
+    margin: auto;
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #ff6b81;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background: #ff4757;
+}
+.choice {
+    display: block;
+    width: 100%;
+}
+</style>
+</head>
+<body><div class="container">
+    <h2>Hey... 👀</h2>
+    <p id="text">No sé muy bien cómo empezar esto...</p>
+    <button onclick="nextStep()">Siguiente</button>
+</div><script>
+let step = 0;
+
+const story = [
+    "No sé muy bien cómo empezar esto...",
+    "pero tampoco quería hacer lo típico de siempre 😅",
+    "así que hice esto... algo raro, pero diferente",
+    "y si estás leyendo esto... ya funcionó un poco 👀",
+    "la verdad no hablamos tanto",
+    "pero cuando lo hacemos... no sé, se siente cómodo",
+    "como si no hubiera que forzar nada",
+    "y eso hoy en día no es tan común",
+    "no es una carta intensa, ni una confesión rara",
+    "solo quería decirte algo sencillo",
+    "me caes bien... pero bien de verdad",
+    "y no es de esas veces que dices eso por decir",
+    "es más como... me gusta platicar contigo",
+    "aunque sea poquito",
+    "aunque sea de cosas equis",
+    "aunque a veces tardes en contestar 😅",
+    "no sé si te pasa igual",
+    "pero hay personas con las que hablas mucho y no se siente nada",
+    "y otras con las que hablas poco... pero se siente distinto",
+    "tú eres más de las segundas",
+    "y pues... eso ya es decir bastante",
+    "tampoco quiero sonar intenso",
+    "porque no es la idea",
+    "solo quería llamar un poquito tu atención",
+    "pero bien, no de forma incómoda",
+    "solo lo suficiente para que sonrías tantito",
+    "o mínimo digas 'ah mira, qué raro este vato' 😂",
+    "si llegaste hasta aquí... ya gané algo",
+    "porque normalmente nadie lee todo esto",
+    "y eso ya lo hace especial",
+    "ahora viene la parte donde esto se vuelve tipo juego 👀",
+    "no hay respuestas correctas... solo curiosidad",
+    "elige lo que más se acerque a lo que piensas"
+];
+
+function nextStep() {
+    if (step < story.length) {
+        document.getElementById("text").innerText = story[step];
+        step++;
+    } else {
+        showOptions();
+    }
+}
+
+function showOptions() {
+    document.querySelector("button").style.display = "none";
+    document.getElementById("text").innerHTML = "Ok... ahora sí 👀<br><br>¿Qué piensas de todo esto?";
+
+    createButton("Me gustó 😌", () => {
+        showEnding("Sabía que mínimo te iba a sacar una sonrisa 😎\n\nEntonces... deberíamos hablar más seguido, ¿no? 👀");
+    });
+
+    createButton("Está curioso 👀", () => {
+        showEnding("Lo tomo como un punto medio 😅\n\nNo está mal... todavía hay chance de mejorar esto 👀");
+    });
+
+    createButton("No sé qué decir 🙃", () => {
+        showEnding("Jajaja válido\n\nLa idea era justo esa... sacarte un poco de lo normal 😌");
+    });
+
+    createButton("Me dio risa 😂", () => {
+        showEnding("Perfecto, objetivo cumplido 😂\n\nEntonces mínimo ya tengo un punto a favor 😌");
+    });
+}
+
+function createButton(text, action) {
+    const btn = document.createElement("button");
+    btn.innerText = text;
+    btn.classList.add("choice");
+    btn.onclick = action;
+    document.querySelector(".container").appendChild(btn);
+}
+
+function showEnding(message) {
+    document.getElementById("text").innerText = message;
+    document.querySelectorAll("button").forEach(b => b.remove());
+
+    setTimeout(() => {
+        const finalBtn = document.createElement("button");
+        finalBtn.innerText = "Última cosa... 👀";
+        finalBtn.onclick = finalQuestion;
+        document.querySelector(".container").appendChild(finalBtn);
+    }, 1500);
+}
+
+function finalQuestion() {
+    document.getElementById("text").innerHTML = "Ya para cerrar esto...<br><br>¿Te gustaría que esto no se quede solo en una página? 👀";
+    document.querySelectorAll("button").forEach(b => b.remove());
+
+    createButton("Sí 😌", () => {
+        document.getElementById("text").innerText = "Entonces ya valió la pena hacer todo esto 😎";
+    });
+
+    createButton("Tal vez 👀", () => {
+        document.getElementById("text").innerText = "Con eso me basta por ahora 😌";
+    });
+
+    createButton("No 🙃", () => {
+        document.getElementById("text").innerText = "Bueno... al menos fue diferente 😅";
+    });
+}
+</script></body>
+</html>
